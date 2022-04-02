@@ -8,11 +8,13 @@ contract FundMe {
     mapping(address => uint256) public addressToAmountFunded;
     address[] public funders;
     address public owner;
+    AggregatorV3Interface public priceFeed;
 
-    constructor() public {
+    constructor(address _priceFeed) public {
         //constructor is called automatically when the contract is deployed.
         owner = msg.sender;
-    } 
+        priceFeed = AggregatorV3Interface(_priceFeed);
+    }
 
     function fund() public payable {
         uint256 minimumUSD = 50 * 10**18;
@@ -29,16 +31,10 @@ contract FundMe {
     }
 
     function getVersion() public view returns (uint256) {
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(
-            0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
-        );
         return priceFeed.version();
     }
 
     function getPrice() public view returns (uint256) {
-        AggregatorV3Interface priceFeed = AggregatorV3Interface(
-            0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
-        );
         (
             uint80 roundId,
             int256 answer,
