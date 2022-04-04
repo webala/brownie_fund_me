@@ -2,9 +2,9 @@ from brownie import accounts, config, network, MockV3Aggregator
 from web3 import Web3
 
 
-DECIMALS = 18
-STARTING_PRICE = 2000
-LOCAL_DEVELOPMENT_ENVIRONMENTS =['development', 'ganache-local']
+DECIMALS = 8
+STARTING_PRICE = 200000000000
+LOCAL_DEVELOPMENT_ENVIRONMENTS = ["development", "ganache-local"]
 
 
 def get_account():
@@ -19,7 +19,5 @@ def deploy_mocks():
     print("Deploying Mocks ...")
     if len(MockV3Aggregator) <= 0:
         # check if there is a MockV3Aggregator deployed in the same network
-        MockV3Aggregator.deploy(
-            DECIMALS, Web3.toWei(STARTING_PRICE, "ether"), {"from": get_account()}
-        )
+        MockV3Aggregator.deploy(DECIMALS, STARTING_PRICE, {"from": get_account()})
         print("Mocks deployed")

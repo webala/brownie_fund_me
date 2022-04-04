@@ -26,6 +26,7 @@ def deploy_fund_me():
         ),  # source code will be published
     )
     print(f"Fund me deployed at {fund_me.address}")
+    return fund_me
 
 
 def main():

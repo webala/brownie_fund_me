@@ -60,6 +60,12 @@ contract FundMe {
     }
 
     //3332.49374413 -> the price has 8 decimals.
+    function getEntranceFee() public view returns (uint256) {
+        uint256 minimumUSD = 50 * 10 ** 18;
+        uint256 price = getPrice();
+        uint256 precision = 1 * 10 **18;
+        return (minimumUSD * precision) / price;
+    }
 
     //Modifiers -> Used to change the behaviour of a function in a declarative way.
     modifier onlyOwner() {
